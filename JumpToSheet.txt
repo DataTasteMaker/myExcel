@@ -1,0 +1,23 @@
+Sub JumpToSheet()
+' Keyboard Shortcut: Ctrl+Shift+Z
+
+Dim wks As Worksheet, strName As String
+Dim cntr As Integer
+Dim sSheet As String
+
+cntr = 0
+For Each wks In Worksheets
+cntr = cntr + 1
+     strName = strName & cntr & ". " & wks.Name & vbNewLine
+Next
+    
+    sSheet = InputBox(Prompt:="Sheet name or number?" & vbNewLine & vbNewLine & strName, Title:="Input Sheet")
+
+    On Error Resume Next
+    If Val(sSheet) > 0 Then
+        Worksheets(Val(sSheet)).Activate
+    Else
+        Worksheets(sSheet).Activate
+    End If
+End Sub
+
