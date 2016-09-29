@@ -6,14 +6,20 @@ Dim cntr As Integer
 Dim sSheet As String
 
 cntr = 0
+hiddenFlg = ""
 For Each wks In Worksheets
 cntr = cntr + 1
-     strName = strName & cntr & ". " & wks.Name & vbNewLine
+hiddenFlg = ""
+    If wks.Visible = False Then hiddenFlg = " (Hidden Sheet) "
+     strName = strName & cntr & ". " & wks.Name & hiddenFlg & vbNewLine
 Next
     
-    sSheet = InputBox(Prompt:="Sheet name or number?" & vbNewLine & vbNewLine & strName, Title:="Input Sheet")
+    sSheet = InputBox(Prompt:="Enter the Sheet number?" & vbNewLine & vbNewLine & strName, Title:="Input Sheet")
 
     On Error Resume Next
+    
+    If Worksheets(Val(sSheet)).Visible = False Then Worksheets(Val(sSheet)).Visible = True
+    
     If Val(sSheet) > 0 Then
         Worksheets(Val(sSheet)).Activate
     Else
